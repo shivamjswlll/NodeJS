@@ -3,10 +3,9 @@ const app=express();
 const users=require('./MOCK_DATA.json');
 const userRouter=require('./routes/user');
 
+const {connectMongoDB}=require('./connection');
+connectMongoDB('mongodb://127.0.0.1:27017/Learning-Mongodb');
 
-mongoose.connect('mongodb://127.0.0.1:27017/Learning-Mongodb').
-then(()=> console.log("MongoDB Connected"))
-.catch(err=> console.log("Error Occured",err))
 
 
 app.use('/user',userRouter);

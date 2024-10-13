@@ -2,6 +2,11 @@ const express=require('express');
 
 const router=express.router();
 
+router.get("/",async(req,res)=>{
+    const allDbUsers=await User.find({});
+    return res.json(allDbUsers);
+})
+
 router.route("/:id")
 .get((req,res)=>{
     const id=Number(req.params.id);
