@@ -1,38 +1,23 @@
 const express=require('express');
+const User=require('../model/user');
 
-const router=express.router();
+const {getUserById,getAllUser,postUser}=require('../controller/user')
 
-router.get("/",async(req,res)=>{
-    const allDbUsers=await User.find({});
-    return res.json(allDbUsers);
-})
+const router=express.Router();
 
-router.route("/:id")
-.get((req,res)=>{
-    const id=Number(req.params.id);
-    const user=users.find(user=> user.id===id)
-    return res.json(user);
-})
+router.get("/",getAllUser);
+
+router.get("/:id",getUserById);
 
 router.use(express.urlencoded({extended: false}));
-router.post("/",async(req,res)=>{
-    const body=req.body;
-    if(!body.first_name||
-        !body.last_name||
-        !body.email||
-        !body.gender
-    ){
-        return res.status(400).json({msg:"All fields are required"});
-    }
-   const result= await User.create({
-        first_name: body.first_name,
-        last_name: body.last_name,
-        email: body.email,
-        gender: body.gender,
-    })
-    
-    return res.status(200).json({msg:"Success"});
-   
-})
+router.post("/",postUser);
 
-export default router;
+module.exports=router;
+
+// app.get("/user",(req,res)=>{
+//     const html=`
+//     <ul>
+//       ${users.map(user=>`<li>${user.first_name}</li>`).join("")}
+//     </ul>`;
+//     res.send(html);
+// })
