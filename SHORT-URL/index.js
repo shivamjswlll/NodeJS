@@ -2,7 +2,7 @@ const express=require('express');
 const {connectMongoDB}=require('./connect');
 const urlroute=require('./routes/url')
 const app=express();
-const {URL}=require('./models/url')
+const URL=require('./models/url')
 
 connectMongoDB('mongodb://localhost:27017/short-url').
 then(console.log('MongoDB connected'));
@@ -14,11 +14,13 @@ app.get('/:shortId',async (req,res)=>{
     const shortId=req.params.shortId;
    const entry= await URL.findOneAndUpdate(
         {
-        shortId
+        shortId,
     },
     {
         $push: {
-        visitHistory:{timestamp: Date.now()},
+        visitHistory:{
+            timestamp: Date.now(),
+                    },
     },
     })
     res.redirect(entry.redirectURL);
