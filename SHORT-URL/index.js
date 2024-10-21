@@ -9,6 +9,9 @@ then(console.log('MongoDB connected'));
 const PORT=8001;
 
 app.use(express.json());
+app.get('/test',(req,res)=>{
+    res.send("<h1>Hey from Test</h1>");
+})
 app.use('/url',urlroute);
 app.get('/:shortId',async (req,res)=>{
     const shortId=req.params.shortId;
