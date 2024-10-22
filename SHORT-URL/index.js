@@ -1,19 +1,35 @@
 const express=require('express');
 const {connectMongoDB}=require('./connect');
+const path=require('path');
 const urlroute=require('./routes/url')
 const app=express();
 const URL=require('./models/url')
+const staticroute=require('./routes/staticrouter')
 
+//MongoDB
 connectMongoDB('mongodb://localhost:27017/short-url').
 then(console.log('MongoDB connected'));
 const PORT=8001;
 
+//ejs
 app.use(express.json());
-app.get('/test',(req,res)=>{
-    res.send("<h1>Hey from Test</h1>");
+app.use(express.urlencoded({extended: false}))
+app.set('view engine',"ejs");
+app.set('views',path.resolve("./views"));
+
+//routes in which using server side rendering with help of ejs
+app.get('/test',async(req,res)=>{
+    const allUrls= await URL.find({});
+    res.render('home',{
+        urls:allUrls,
+    });
 })
-app.use('/url',urlroute);
-app.get('/:shortId',async (req,res)=>{
+
+//routes
+// app.use('/url/',urlroute);
+app.use('/',staticroute);
+
+app.get('/url/:shortId',async (req,res)=>{
     const shortId=req.params.shortId;
    const entry= await URL.findOneAndUpdate(
         {
@@ -25,7 +41,7 @@ app.get('/:shortId',async (req,res)=>{
             timestamp: Date.now(),
                     },
     },
-    })
+    },{new:true})
     res.redirect(entry.redirectURL);
 })
 
