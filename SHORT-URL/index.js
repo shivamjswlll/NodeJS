@@ -4,7 +4,8 @@ const path=require('path');
 const urlroute=require('./routes/url')
 const app=express();
 const URL=require('./models/url')
-const staticroute=require('./routes/staticrouter')
+const staticroute=require('./routes/staticrouter');
+const { timeStamp } = require('console');
 
 //MongoDB
 connectMongoDB('mongodb://localhost:27017/short-url').
@@ -29,19 +30,20 @@ app.get('/test',async(req,res)=>{
 // app.use('/url/',urlroute);
 app.use('/',staticroute);
 
-app.get('/url/:shortId',async (req,res)=>{
+app.get('/:shortId',async (req,res)=>{
     const shortId=req.params.shortId;
-   const entry= await URL.findOneAndUpdate(
-        {
+    const entry=await URL.findOneAndUpdate({
         shortId,
     },
     {
-        $push: {
-        visitHistory:{
-            timestamp: Date.now(),
-                    },
-    },
-    },{new:true})
+        $push:{
+            visitHistory:{
+                timeStamp: Date.now(),
+            }
+        }
+    }
+    
+);
     res.redirect(entry.redirectURL);
 })
 

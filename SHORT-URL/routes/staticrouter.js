@@ -4,9 +4,7 @@ const URL = require('../models/url');
 const router=express.Router();
 
 router.get('/',async(req,res)=>{
-    const allurls=URL.find({});
-    res.render('home',{
-        url: allurls,
-    })
+    
+    res.render('home')
 })
 module.exports=router;
