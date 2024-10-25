@@ -27,12 +27,12 @@ app.get('/test',async(req,res)=>{
 })
 
 //routes
-// app.use('/url/',urlroute);
+app.use('/url/',urlroute);
 app.use('/',staticroute);
 
-app.get('/:shortId',async (req,res)=>{
+app.get('/url/:shortId',async (req,res)=>{
     const shortId=req.params.shortId;
-    const entry=await URL.findOneAndUpdate({
+    const entry= await URL.findOneAndUpdate({
         shortId,
     },
     {
@@ -44,8 +44,11 @@ app.get('/:shortId',async (req,res)=>{
     }
     
 );
-    res.redirect(entry.redirectURL);
+
+const a = `http://${entry.redirectURL}`;
+res.redirect(a);
 })
+
 
 
 
