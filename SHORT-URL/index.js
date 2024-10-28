@@ -1,10 +1,14 @@
 const express=require('express');
 const {connectMongoDB}=require('./connect');
 const path=require('path');
+
 const urlroute=require('./routes/url')
+const staticroute=require('./routes/staticrouter');
+const userRoute=require('./routes/user');
+
 const app=express();
 const URL=require('./models/url')
-const staticroute=require('./routes/staticrouter');
+
 const { timeStamp } = require('console');
 
 //MongoDB
@@ -29,6 +33,7 @@ app.get('/test',async(req,res)=>{
 //routes
 app.use('/url/',urlroute);
 app.use('/',staticroute);
+app.use('/user',userRoute);
 
 app.get('/url/:shortId',async (req,res)=>{
     const shortId=req.params.shortId;
