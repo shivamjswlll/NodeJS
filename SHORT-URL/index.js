@@ -23,7 +23,7 @@ app.set('view engine',"ejs");
 app.set('views',path.resolve("./views"));
 
 //routes in which using server side rendering with help of ejs
-app.get('/test',async(req,res)=>{
+app.get('/testi',async(req,res)=>{
     const allUrls= await URL.find({});
     res.render('home',{
         urls:allUrls,
@@ -34,6 +34,7 @@ app.get('/test',async(req,res)=>{
 app.use('/url/',urlroute);
 app.use('/',staticroute);
 app.use('/user',userRoute);
+
 
 app.get('/url/:shortId',async (req,res)=>{
     const shortId=req.params.shortId;
