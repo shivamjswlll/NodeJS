@@ -23,7 +23,7 @@ app.set('view engine',"ejs");
 app.set('views',path.resolve("./views"));
 
 //routes in which using server side rendering with help of ejs
-app.get('/testi',async(req,res)=>{
+app.get('/testin',async(req,res)=>{
     const allUrls= await URL.find({});
     res.render('home',{
         urls:allUrls,
