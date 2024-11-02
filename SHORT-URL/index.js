@@ -31,7 +31,7 @@ app.get('/testin',async(req,res)=>{
 })
 
 //routes
-app.use('/url/',urlroute);
+app.use('/url',urlroute);
 app.use('/',staticroute);
 app.use('/user',userRoute);
 
