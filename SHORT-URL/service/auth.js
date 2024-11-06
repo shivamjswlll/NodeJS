@@ -1,3 +1,5 @@
 const SessionIdToUserMap= new Map();
 
-function
+function setUser(id , user){
+    
+}
