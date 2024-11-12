@@ -9,4 +9,5 @@ function getUser(id){
     const user=body;
     const id=body;
     const u=body;
+    const a=[body];
 }
