@@ -2,7 +2,7 @@ const express=require('express');
 const {connectMongoDB}=require('./connect');
 const path=require('path');
 
-const urlroute=require('./routes/url')
+const urlroute=require('./routes/url');
 const staticroute=require('./routes/staticrouter');
 const userRoute=require('./routes/user');
 
